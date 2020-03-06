@@ -1,4 +1,4 @@
-package kotlin.util.coroutines.concurrent
+package hub.util.coroutines.concurrent
 
 import org.junit.Test
 

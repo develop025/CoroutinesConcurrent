@@ -1,4 +1,4 @@
-package kotlin.util.coroutines.concurrent
+package hub.util.coroutines.concurrent
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("kotlin.util.coroutines.concurrent.test", appContext.packageName)
+        assertEquals("kotlin.util.coroutines.concurrent", appContext.packageName)
     }
 }
