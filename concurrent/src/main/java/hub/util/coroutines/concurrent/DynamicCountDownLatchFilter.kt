@@ -1,6 +1,6 @@
 package hub.util.coroutines.concurrent
 
-import android.util.Log
+import hub.util.coroutines.concurrent.StringExtentions.Companion.logd
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -52,8 +52,4 @@ class DynamicCountDownLatchFilter(
         else
             throw IllegalAccessException()
     }
-}
-
-private fun String.logd() {
-    Log.d("myapp", this)
 }
