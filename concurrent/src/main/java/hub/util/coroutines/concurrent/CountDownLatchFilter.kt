@@ -1,21 +1,18 @@
 package hub.util.coroutines.concurrent
 
-import kotlinx.coroutines.sync.Mutex
-import java.util.concurrent.atomic.AtomicInteger
+import hub.util.coroutines.concurrent.StringExtentions.Companion.logd
 
-class CountDownLatchFilter(override val count: AtomicInteger, private val filter: Any?) :
-    CountDownLatch(count) {
-    private val general = Mutex()
-    private val generalLock = Any()
-
+class CountDownLatchFilter(count: Int, private val filter: Any?) : CountDownLatch(count) {
     init {
-        require(count.get() >= 0) { "count < 0" }
+        require(countAtomic.get() >= 0) { "count < 0" }
     }
 
-    override fun countDown(result: Any?) {
+    fun countDown(result: Any?) {
         super.countDown()
-        count.decrementAndGet()
-        if (count.get() <= 0 || (filter != null && filter == result))
-            general.unlock(generalLock)
+        "${this.javaClass.simpleName} result:$result".logd()
+        if (filter != null && filter == result) {
+            "${this.javaClass.simpleName} countDown unlock with filter result:$result".logd()
+            general.unlock()
+        }
     }
 }
