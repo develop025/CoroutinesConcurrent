@@ -2,12 +2,12 @@ package hub.util.coroutines.concurrent
 
 import hub.util.coroutines.concurrent.StringExtentions.Companion.logd
 
-class CountDownLatchFilter(count: Int, private val filter: Any?) : CountDownLatch(count) {
+open class CountDownLatchFilter(count: Int, private val filter: Any?) : CountDownLatch(count) {
     init {
         require(countAtomic.get() >= 0) { "count < 0" }
     }
 
-    fun countDown(result: Any?) {
+    suspend fun countDown(result: Any?) {
         super.countDown()
         "${this.javaClass.simpleName} result:$result".logd()
         if (filter != null && filter == result) {

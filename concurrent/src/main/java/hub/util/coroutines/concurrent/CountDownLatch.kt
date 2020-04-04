@@ -18,7 +18,7 @@ open class CountDownLatch(count: Int) {
         afterUnlock.invoke()
     }
 
-    fun countDown() {
+    suspend fun countDown() {
         if (countAtomic.get() <= 0) {
             "${this.javaClass.simpleName} countDown already finished".logd()
             return
@@ -32,5 +32,5 @@ open class CountDownLatch(count: Int) {
 
     }
 
-    fun getCount() = countAtomic.get()
+    suspend fun getCount() = countAtomic.get()
 }
