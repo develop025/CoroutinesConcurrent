@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val latch = CountDownLatch(4)
+        //val latch = CountDownLatch(4)
 
 //        val first =
 //            Worker(1000, latch, "WORKER-1")
