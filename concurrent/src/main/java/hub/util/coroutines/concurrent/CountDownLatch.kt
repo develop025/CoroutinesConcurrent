@@ -1,26 +1,36 @@
 package hub.util.coroutines.concurrent
 
+import hub.util.coroutines.concurrent.StringExtentions.Companion.logd
 import kotlinx.coroutines.sync.Mutex
 import java.util.concurrent.atomic.AtomicInteger
 
-open class CountDownLatch(open val count: AtomicInteger) {
-    private val general = Mutex()
-    private val generalLock = Any()
+open class CountDownLatch(count: Int) {
+    var countAtomic: AtomicInteger = AtomicInteger(count)
+    protected val general = Mutex()
 
     init {
-        require(count.get() >= 0) { "count < 0" }
+        require(countAtomic.get() >= 0) { "count < 0" }
     }
 
-    suspend fun await() {
-        general.lock(generalLock)
+    suspend fun await(afterUnlock: () -> Unit) {
+        general.lock()
+        general.lock()
+        afterUnlock.invoke()
     }
 
-    fun countDown() {
-        count.decrementAndGet()
-        if (count.get() <= 0)
-            general.unlock(generalLock)
+    suspend fun countDown() {
+        if (countAtomic.get() <= 0) {
+            "${this.javaClass.simpleName} countDown already finished".logd()
+            return
+        }
+
+        countAtomic.decrementAndGet()
+        if (countAtomic.get() <= 0) {
+            "${this.javaClass.simpleName} unlock".logd()
+            general.unlock()
+        }
+
     }
 
-    fun getCount() = count.get()
-    open fun countDown(result: Any?) {}
+    suspend fun getCount() = countAtomic.get()
 }
