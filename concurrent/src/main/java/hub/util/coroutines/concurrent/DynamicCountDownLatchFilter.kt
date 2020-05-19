@@ -1,6 +1,6 @@
 package hub.util.coroutines.concurrent
 
-import hub.util.coroutines.concurrent.StringExtentions.Companion.logd
+import hub.util.coroutines.concurrent.StringExtentions.Companion.logD
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -28,16 +28,16 @@ class DynamicCountDownLatchFilter(
 //    }
 
     fun start(suspendFunction: () -> Unit) {
-        "start".logd()
+        "start".logD()
         val job = CoroutineScope(dispatcher).launch {
-            "launch".logd()
+            "launch".logD()
             val result = suspendFunction.invoke()
             if (result == filter) {
-                "result == filter".logd()
+                "result == filter".logD()
                 dispatcher.cancel()
             }
         }
-        "jobs.add".logd()
+        "jobs.add".logD()
         jobs.add(job)
     }
 

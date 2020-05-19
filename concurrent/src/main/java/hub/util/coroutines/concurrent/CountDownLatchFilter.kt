@@ -1,6 +1,6 @@
 package hub.util.coroutines.concurrent
 
-import hub.util.coroutines.concurrent.StringExtentions.Companion.logd
+import hub.util.coroutines.concurrent.StringExtentions.Companion.logD
 
 open class CountDownLatchFilter(count: Int, private val filter: Any?) : CountDownLatch(count) {
     init {
@@ -9,9 +9,9 @@ open class CountDownLatchFilter(count: Int, private val filter: Any?) : CountDow
 
     suspend fun countDown(result: Any?) {
         super.countDown()
-        "${this.javaClass.simpleName} result:$result".logd()
+        "${this.javaClass.simpleName} result:$result".logD()
         if (filter != null && filter == result) {
-            "${this.javaClass.simpleName} countDown unlock with filter result:$result".logd()
+            "${this.javaClass.simpleName} countDown unlock with filter result:$result".logD()
             general.unlock()
         }
     }

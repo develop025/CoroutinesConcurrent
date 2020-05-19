@@ -1,6 +1,6 @@
 package hub.util.coroutines.concurrent
 
-import hub.util.coroutines.concurrent.StringExtentions.Companion.logd
+import hub.util.coroutines.concurrent.StringExtentions.Companion.logD
 import kotlinx.coroutines.sync.Mutex
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -20,13 +20,13 @@ open class CountDownLatch(count: Int) {
 
     suspend fun countDown() {
         if (countAtomic.get() <= 0) {
-            "${this.javaClass.simpleName} countDown already finished".logd()
+            "${this.javaClass.simpleName} countDown already finished".logD()
             return
         }
 
         countAtomic.decrementAndGet()
         if (countAtomic.get() <= 0) {
-            "${this.javaClass.simpleName} unlock".logd()
+            "${this.javaClass.simpleName} unlock".logD()
             general.unlock()
         }
 

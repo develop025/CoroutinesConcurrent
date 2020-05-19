@@ -4,8 +4,8 @@ import android.util.Log
 
 class StringExtentions {
     companion object {
-        fun String.logd() {
-            Log.d("myapp", this)
+        fun String.logD() {
+            Log.d("CoroutinesConcurrent", this)
         }
     }
 }
